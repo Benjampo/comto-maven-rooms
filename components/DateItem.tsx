@@ -17,7 +17,7 @@ function DateItem({day, dayIdx, onChange}) {
 
     return (
         <div ref={ref} key={day.date} className={classNames(dayIdx > 6 && 'border-t border-gray-200', 'py-2')}>
-            {isPanelOpen && <HourPanel />}
+            {isPanelOpen && <HourPanel day={day} />}
             <button
                 type="button"
                 onClick={() => {

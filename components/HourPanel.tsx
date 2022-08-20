@@ -3,10 +3,11 @@ import { Fragment, useState } from 'react'
 import {Dialog, Menu, Transition} from '@headlessui/react'
 import { ExclamationIcon, XIcon } from '@heroicons/react/outline'
 
-export default function HourPanel() {
+export default function HourPanel({day}) {
 
     return (
-        <div className="absolute top-1/2 rounded bg-white shadow-xl radius p-4 w-1/6 ">
+        <div className="absolute  rounded bg-white shadow-xl radius p-4 w-1/6 ">
+            <h4>{day.date}</h4>
             <div className="flex justify-between items-center">
                 <label htmlFor="appt">Début</label>
                 <input className="p-1 m-1" type="time" id="startTime" name="startTime"

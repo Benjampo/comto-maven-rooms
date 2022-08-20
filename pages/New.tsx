@@ -169,7 +169,7 @@ export default function New() {
                         <div>S</div>
                         <div>S</div>
                     </div>
-                    <div className="mt-2 px-4 grid grid-cols-7 text-sm">
+                    <div className="mt-2 px-4 grid grid-cols-7 text-sm ">
                         {days.map((day, dayIdx) => (
                             <DateItem day={day} dayIdx={dayIdx} onChange={handleHour} />
                         ))}
@@ -204,7 +204,7 @@ export default function New() {
                     <h2 className="font-semibold text-gray-900">
                         Schedule for <time dateTime="2022-01-21">January 21, 2022</time>
                     </h2>
-                    <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
+                    <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500" >
                         {meetings?.map((meeting) => (
                           <MeetingCard meeting={meeting} />
 
