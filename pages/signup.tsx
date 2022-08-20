@@ -2,7 +2,7 @@ import { LockClosedIcon } from '@heroicons/react/solid'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import {auth} from "../lib/firebase";
 import {useContext, useState} from "react";
-import {UserProvider, useUserContext} from "../lib/context";
+import {UserProvider, useUserContext} from "../lib/UserContext";
 
 
 export default function SignUp() {

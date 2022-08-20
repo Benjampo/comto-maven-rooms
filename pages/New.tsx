@@ -5,7 +5,8 @@ import { DotsVerticalIcon } from '@heroicons/react/outline'
 import Link from "next/link";
 import {addDoc, getDocs} from "firebase/firestore";
 import {meetingsRef} from "../lib/firebase";
-import {useUserContext} from "../lib/context";
+import {useUserContext} from "../lib/UserContext";
+import {useRouter} from "next/router";
 
 const days = [
     { date: '2021-12-27' },
@@ -76,7 +77,7 @@ export default function New() {
     const [startHour, setStartHour] = useState(null)
     const [endHour, setEndHour] = useState(null)
     const {user} = useUserContext();
-
+    const router = useRouter()
     useEffect(() => {
         console.log(meetingType)
     }, [meetingType])
@@ -90,6 +91,8 @@ export default function New() {
             endHour:endHour,
             room: room,
             meetingType: meetingType,
+        }).then(() => {
+            router.push('/dashboard')
         })
     }
 

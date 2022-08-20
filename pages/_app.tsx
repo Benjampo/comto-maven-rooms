@@ -1,13 +1,15 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import {UserProvider} from "../lib/context";
+import {UserProvider} from "../lib/UserContext";
 import Navbar from "../components/Navbar";
+import {MeetingsProvider} from "../lib/MeetingsContext";
 
 
 function MyApp({ Component, pageProps }: AppProps) {
 
     return(
       <UserProvider>
+          <MeetingsProvider>
           <div className="min-h-full">
               <Navbar />
               <div className="py-10">
@@ -18,8 +20,8 @@ function MyApp({ Component, pageProps }: AppProps) {
                   </main>
               </div>
           </div>
-
-      </UserProvider>
+      </MeetingsProvider>
+    </UserProvider>
     )
 }
 
