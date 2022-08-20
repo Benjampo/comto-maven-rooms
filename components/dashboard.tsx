@@ -8,15 +8,14 @@ import {
     ChevronRightIcon,
     DotsHorizontalIcon,
     LocationMarkerIcon,
+    ClockIcon
 } from '@heroicons/react/solid'
 
 import { Menu, Transition } from '@headlessui/react'
 import {db} from "../lib/firebase";
 import Link from "next/link";
-import MeetingCard from "../components/MeetingCard";
+import MeetingCard from "./MeetingCard";
 import {MeetingsProvider, useMeetingContext} from "../lib/MeetingsContext";
-
-const meetings = []
 
 const days = [
     { date: '2021-12-27' },

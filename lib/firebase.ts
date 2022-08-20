@@ -26,3 +26,4 @@ export const auth = getAuth(app);
 
 export const meetingsRef = collection(db, 'meetings')
 
+

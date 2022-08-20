@@ -1,12 +1,13 @@
 import {Fragment, useEffect, useState} from 'react'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
-import { Menu, Transition } from '@headlessui/react'
-import { DotsVerticalIcon } from '@heroicons/react/outline'
 import Link from "next/link";
 import {addDoc, getDocs} from "firebase/firestore";
 import {meetingsRef} from "../lib/firebase";
 import {useUserContext} from "../lib/UserContext";
 import {useRouter} from "next/router";
+import DateItem from "../components/DateItem";
+import MeetingCard from "../components/MeetingCard";
+import {useMeetingContext} from "../lib/MeetingsContext";
 
 const days = [
     { date: '2021-12-27' },
@@ -52,19 +53,7 @@ const days = [
     { date: '2022-02-05' },
     { date: '2022-02-06' },
 ]
-const meetings = [
-    {
-        id: 1,
-        name: 'Leslie Alexander',
-        imageUrl:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        start: '1:00 PM',
-        startDatetime: '2022-01-21T13:00',
-        end: '2:30 PM',
-        endDatetime: '2022-01-21T14:30',
-    },
-    // More meetings...
-]
+
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -77,6 +66,8 @@ export default function New() {
     const [startHour, setStartHour] = useState(null)
     const [endHour, setEndHour] = useState(null)
     const {user} = useUserContext();
+    const { meetings } = useMeetingContext();
+
     const router = useRouter()
     useEffect(() => {
         console.log(meetingType)
@@ -92,15 +83,16 @@ export default function New() {
             room: room,
             meetingType: meetingType,
         }).then(() => {
-            router.push('/dashboard')
+            router.push('/')
         })
     }
-
+    const handleHour = () => {
+        setStartHour()
+    }
 
     return (
         <main className="flex flex-row justify-between align-middle">
         <div className="w-2/4 m-8">
-
             <div className="max-w-3xl mx-auto">{<form className="space-y-8 divide-y divide-gray-200">
 
                     <div>
@@ -179,27 +171,7 @@ export default function New() {
                     </div>
                     <div className="mt-2 px-4 grid grid-cols-7 text-sm">
                         {days.map((day, dayIdx) => (
-                            <div key={day.date} className={classNames(dayIdx > 6 && 'border-t border-gray-200', 'py-2')}>
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        setDay(day.date)
-                                    }}
-                                    className={classNames(
-                                        day.isSelected && 'text-white',
-                                        !day.isSelected && day.isToday && 'text-indigo-600',
-                                        !day.isSelected && !day.isToday && day.isCurrentMonth && 'text-gray-900',
-                                        !day.isSelected && !day.isToday && !day.isCurrentMonth && 'text-gray-400',
-                                        day.isSelected && day.isToday && 'bg-indigo-600',
-                                        day.isSelected && !day.isToday && 'bg-gray-900',
-                                        !day.isSelected && 'hover:bg-gray-200',
-                                        (day.isSelected || day.isToday) && 'font-semibold',
-                                        'mx-auto flex h-8 w-8 items-center justify-center rounded-full'
-                                    )}
-                                >
-                                    <time dateTime={day.date}>{day.date.split('-').pop().replace(/^0/, '')}</time>
-                                </button>
-                            </div>
+                            <DateItem day={day} dayIdx={dayIdx} onChange={handleHour} />
                         ))}
                     </div>
                 </div>
@@ -233,21 +205,9 @@ export default function New() {
                         Schedule for <time dateTime="2022-01-21">January 21, 2022</time>
                     </h2>
                     <ol className="mt-4 space-y-1 text-sm leading-6 text-gray-500">
-                        {meetings.map((meeting) => (
-                            <li
-                                key={meeting.id}
-                                className="group flex items-center space-x-4 rounded-xl py-2 px-4 focus-within:bg-gray-100 hover:bg-gray-100"
-                            >
-                                <img src={meeting.imageUrl} alt="" className="h-10 w-10 flex-none rounded-full" />
-                                <div className="flex-auto">
-                                    <p className="text-gray-900">{meeting.name}</p>
-                                    <p className="mt-0.5">
-                                        <time dateTime={meeting.startDatetime}>{meeting.start}</time> -{' '}
-                                        <time dateTime={meeting.endDatetime}>{meeting.end}</time>
-                                    </p>
-                                </div>
+                        {meetings?.map((meeting) => (
+                          <MeetingCard meeting={meeting} />
 
-                            </li>
                         ))}
                     </ol>
                 </section>

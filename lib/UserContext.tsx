@@ -1,7 +1,7 @@
 import {createContext, useContext, useEffect, useState} from 'react';
-import {auth, meetingsRef, provider} from "./firebase";
+import {auth, db, meetingsRef, provider, usersRef} from "./firebase";
 import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
-import {getDocs} from "firebase/firestore";
+import {addDoc, doc, getDocs, setDoc} from "firebase/firestore";
 
 // @ts-ignore
 const UserContext = createContext();
@@ -21,7 +21,12 @@ function UserProvider(props: any) {
                 const token = credential.accessToken;
                 // The signed-in user info.
                 setUser(result.user)
-                // ...
+
+                setDoc(doc(db, 'users', result.user.uid),  {
+                    uid: result.user.uid,
+                    name: result.user.displayName,
+                    image: result.user.photoURL,
+                })
             })
     }
 

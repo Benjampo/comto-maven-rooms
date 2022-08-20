@@ -8,9 +8,6 @@ import {UserProvider} from "../lib/UserContext";
 
 const navigation = [
     { name: 'Dashboard', href: '#', current: true },
-    { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
 ]
 const userNavigation = [
     { name: 'Your Profile', action: '#' },

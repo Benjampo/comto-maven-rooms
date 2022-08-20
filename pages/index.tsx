@@ -3,8 +3,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {UserProvider, useUserContext} from "../lib/UserContext";
-import Login from "./login";
-import Dashboard from "./dashboard";
+import Login from "../components/login";
+import Dashboard from "../components/dashboard";
 import {useContext, useEffect} from "react";
 import Navbar from "../components/Navbar";
 

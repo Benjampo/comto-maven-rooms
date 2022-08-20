@@ -13,7 +13,7 @@ function MeetingsProvider(props: any) {
         if (!meetings) {
             getMeetings()
         }
-    },[])
+    },[meetings])
 
     const getMeetings = async() => {
         let allMeetings = []
